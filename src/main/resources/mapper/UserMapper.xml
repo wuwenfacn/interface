@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fa.mapper.UserMapper">
+    <resultMap id="UserMapper01" type="com.fa.entity.User">
+        <id property="uId" column="u_id"></id>
+        <result property="uName" column="u_name"></result>
+        <result property="uPhone" column="u_phone"></result>
+        <result property="isDelete" column="is_delete"></result>
+    </resultMap>
+    <resultMap id="UserMapper02" type="com.fa.entity.User" extends="UserMapper01">
+        <!--方式1：自己定义-->
+        <!--<collection property="addresses" ofType="com.fa.entity.Address">
+            <id property="aId" column="a_id"></id>
+            <result property="aAddress" column="a_address"></result>
+            <result property="aDAddress" column="a_d_address"></result>
+            <result property="aStatus" column="a_status"></result>
+        </collection>-->
+        <!--方式2：引入定义好的-->
+        <collection property="addresses" resultMap="com.fa.entity.Address.AddressMapper"/>
+    </resultMap>
+    <select id="selectUserById" resultMap="UserMapper02">
+        select a.a_id, a.a_address, a.a_d_address, a.a_status,
+        u.u_id, u.u_name, u.u_phone
+        from address a left join user u
+        on a.u_id = u.u_id
+        where a.is_delete = u.is_delete = 1
+        and u.u_id = #{user.uId};
+    </select>
+</mapper>

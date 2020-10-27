@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fa.entity.Address">
+    <resultMap id="AddressMapper" type="com.fa.entity.Address">
+        <id property="aId" column="a_id"></id>
+        <result property="aAddress" column="a_address"></result>
+        <result property="aDAddress" column="a_d_address"></result>
+        <result property="aStatus" column="a_status"></result>
+    </resultMap>
+</mapper>
